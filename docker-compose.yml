@@ -73,7 +73,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
-      - grafana-storage:/var/lib/grafana
+      - grafana-data:/var/lib/grafana
     networks:
       - playground-net
     depends_on:
@@ -85,5 +85,8 @@ networks:
 
 volumes:
   pgdata:
+    driver: local
+  
+  grafana-data:
     driver: local
 
