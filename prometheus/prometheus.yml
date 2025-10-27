@@ -1,0 +1,13 @@
+# Prometheus sert à collecter et stocker des métriques. 
+
+global:
+  scrape_interval: 5s # intervalle de 5s de collecte
+
+scrape_configs: #scrape = collecter
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["prometheus:9090"] # elle cible ici elle-même pour le monitoring
+
+  - job_name: "cadvisor"
+    static_configs:
+      - targets: ["cadvisor:8080"] # là elle cible cAdvisor qu'on à définit dans le docker-compose.yml
