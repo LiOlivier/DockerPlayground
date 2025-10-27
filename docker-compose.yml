@@ -72,6 +72,7 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_METRICS_ENABLED=true
     volumes:
       - grafana-data:/var/lib/grafana
     networks:
