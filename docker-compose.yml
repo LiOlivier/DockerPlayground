@@ -72,10 +72,12 @@ services:
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
-    depends_on:
-      - prometheus
+    volumes:
+      - grafana-storage:/var/lib/grafana
     networks:
       - playground-net
+    depends_on:
+      - prometheus    
 
 networks:
   playground-net:
