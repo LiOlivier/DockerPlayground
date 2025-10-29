@@ -19,3 +19,7 @@ scrape_configs: #scrape = collecter
   - job_name: "nginx"
     static_configs:
       - targets: ["nginx_web:80"] # nginx c'est pour l'usage des métriques qu'on à définit dans le docker-compose.yml
+
+  - job_name: "telegraf"
+    static_configs:
+      - targets: ["telegraf:8125"] # telegraf c'est pour l'usage des métriques qu'on à définit dans le docker-compose.yml
