@@ -22,4 +22,6 @@ scrape_configs: #scrape = collecter
 
   - job_name: "telegraf"
     static_configs:
-      - targets: ["telegraf:8125"] # telegraf c'est pour l'usage des métriques qu'on à définit dans le docker-compose.yml
+      - targets: ["telegraf:9273"] # Telegraf expose ses métriques Prometheus via outputs.prometheus_client
+
+  
