@@ -80,6 +80,20 @@ services:
     depends_on:
       - prometheus    
 
+  telegraf:
+    image: telegraf:latest
+    container_name: telegraf
+    restart: unless-stopped
+    volumes:
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - playground-net
+    depends_on:
+      - prometheus
+      - cadvisor
+      - nginx
+
 networks:
   playground-net:
     driver: bridge
@@ -91,3 +105,5 @@ volumes:
   grafana-data:
     driver: local
 
+  telegraf-data:
+    driver: local  
