@@ -24,6 +24,7 @@ services:
       - postgres
     networks:
       - playground-net
+
   nginx:
     image: nginx:latest
     container_name: nginx_web
@@ -34,7 +35,6 @@ services:
       - ./html:/usr/share/nginx/html
     networks:
       - playground-net
-  
 
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
@@ -62,7 +62,10 @@ services:
       - playground-net
     depends_on:
       - cadvisor
-
+      - nginx
+      - telegraf
+      - mini_blog
+  
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -78,7 +81,9 @@ services:
     networks:
       - playground-net
     depends_on:
-      - prometheus    
+      - prometheus
+      - telegraf
+      - mini_blog
 
   telegraf:
     image: telegraf:latest
@@ -102,12 +107,16 @@ services:
       - prometheus
       - cadvisor
       - nginx
+      - grafana
+      - telegraf
+
   mini_blog:
     build:
       context: ./mini_blog
       dockerfile: DockerFile
     container_name: mini_blog
     restart: unless-stopped
+    entrypoint: ["sh","/app/entrypoint.sh"] # démarre le serveur de développement Django comme préciser dans entrypoint.sh
     ports:
       - "8000:8000"
     volumes:
