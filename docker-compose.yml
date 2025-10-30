@@ -1,4 +1,3 @@
-
 services:
   postgres:
     image: postgres:16
@@ -35,7 +34,8 @@ services:
       - ./html:/usr/share/nginx/html
     networks:
       - playground-net
-      
+  
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
@@ -102,7 +102,21 @@ services:
       - prometheus
       - cadvisor
       - nginx
-
+  mini_blog:
+    build:
+      context: ./mini_blog
+      dockerfile: DockerFile
+    container_name: mini_blog
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./mini_blog:/app
+    networks:
+      - playground-net
+    depends_on:
+      - postgres
+      
 networks:
   playground-net:
     driver: bridge
